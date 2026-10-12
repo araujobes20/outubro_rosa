@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seu risco de câncer de mama | Outubro Rosa</title>
+  <meta name="description" content="Ferramenta educativa de estimativa de risco de câncer de mama com orientações sobre mamografia, genética e hábitos.">
+  <meta name="theme-color" content="#B3205F">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+
+<header class="top">
+  <svg class="ribbon" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 28C20 14 24 4 32 4s12 10 0 24c-4 8-10 18-16 30M32 28c4 8 10 18 16 30"/></svg>
+  <div>
+    <p class="brand">Outubro Rosa</p>
+    <p class="brand-sub">Ação de extensão universitária</p>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+
+  <!-- Barra de progresso -->
+  <div id="progress" class="progress" hidden>
+    <p id="progress-label" class="progress-label"></p>
+    <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0" id="progress-aria"><div id="progress-bar" class="progress-bar"></div></div>
+  </div>
+
+  <form id="form" novalidate autocomplete="off">
+
+    <!-- 0. Boas-vindas -->
+    <section class="step card" data-step="0">
+      <h1 tabindex="-1">Seu risco de câncer de mama</h1>
+      <p class="lead">Responda a 4 blocos de perguntas (cerca de 3 minutos). Você recebe uma pontuação de 0 a 100 e um plano claro: quando fazer a mamografia, se vale conversar sobre teste genético e o que mudar nos hábitos.</p>
+      <p class="note">Para mulheres a partir de 18 anos. É uma ferramenta educativa: não faz diagnóstico e não substitui consulta nem mamografia.</p>
+
+      <label class="check">
+        <input type="checkbox" id="understand" required>
+        <span>Entendi que esta ferramenta é educativa e não substitui avaliação profissional.</span>
+      </label>
+      <label class="check">
+        <input type="checkbox" id="consent">
+        <span>Autorizo enviar minhas respostas, sem nome nem contato, para fins de pesquisa e extensão. Posso usar a ferramenta mesmo sem autorizar.</span>
+      </label>
+
+      <div class="nav"><button type="button" class="btn" data-next>Começar</button></div>
+    </section>
+
+    <!-- 1. Sobre você -->
+    <section class="step card" data-step="1" hidden>
+      <h2 tabindex="-1">Sobre você</h2>
+
+      <div class="grid3">
+        <div class="field"><label for="age">Idade (anos)</label><input id="age" type="number" inputmode="numeric" min="18" max="100" required></div>
+        <div class="field"><label for="weight">Peso (kg)</label><input id="weight" type="number" inputmode="decimal" step="0.1" min="30" max="250" required></div>
+        <div class="field"><label for="height">Altura (cm)</label><input id="height" type="number" inputmode="numeric" min="120" max="220" required></div>
+      </div>
+
+      <fieldset class="field">
+        <legend>Você já teve câncer de mama?</legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="personalCA" value="nao" required><span>Não</span></label>
+          <label class="choice"><input type="radio" name="personalCA" value="sim" required><span>Sim</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend>Você já entrou na menopausa (sem menstruar há 12 meses ou mais)?</legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="meno" value="pre" required><span>Não, ainda menstruo</span></label>
+          <label class="choice"><input type="radio" name="meno" value="pos" required><span>Sim</span></label>
+        </div>
+      </fieldset>
+
+      <div class="grid2">
+        <div class="field" id="g-menoAge" hidden><label for="menoAge">Idade na última menstruação</label><input id="menoAge" type="number" inputmode="numeric" min="30" max="65" disabled><span class="hint">Se não lembrar, deixe em branco.</span></div>
+        <div class="field"><label for="menarche">Idade da primeira menstruação</label><input id="menarche" type="number" inputmode="numeric" min="8" max="20"><span class="hint">Se não lembrar, deixe em branco.</span></div>
+      </div>
+
+      <div class="nav"><button type="button" class="btn ghost" data-prev>Voltar</button><button type="button" class="btn" data-next>Continuar</button></div>
+    </section>
+
+    <!-- 2. Família e mamas -->
+    <section class="step card" data-step="2" hidden>
+      <h2 tabindex="-1">Família e mamas</h2>
+
+      <fieldset class="field">
+        <legend>Quantas parentes de 1º grau (mãe, irmãs, filhas) tiveram câncer de mama?</legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="famCount" value="0" required><span>Nenhuma</span></label>
+          <label class="choice"><input type="radio" name="famCount" value="1" required><span>Uma</span></label>
+          <label class="choice"><input type="radio" name="famCount" value="2" required><span>Duas ou mais</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend>Na sua família (mãe, pai, irmãos, filhos, avós, tios), algum destes casos ocorreu?</legend>
+        <label class="check"><input type="checkbox" id="famYoung"><span>Câncer de mama diagnosticado antes dos 50 anos</span></label>
+        <label class="check"><input type="checkbox" id="famBilateral"><span>Câncer de mama nos dois seios na mesma pessoa</span></label>
+        <label class="check"><input type="checkbox" id="famOvary"><span>Câncer de ovário</span></label>
+        <label class="check"><input type="checkbox" id="famMale"><span>Câncer de mama em homem</span></label>
+        <label class="check"><input type="checkbox" id="famOtherCA"><span>Câncer de pâncreas ou de próstata metastático</span></label>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend>Teste genético (BRCA1, BRCA2 e outros genes)</legend>
+        <div class="choices col">
+          <label class="choice"><input type="radio" name="geneMut" value="nunca" required><span>Nunca fiz</span></label>
+          <label class="choice"><input type="radio" name="geneMut" value="negativo" required><span>Fiz e não tenho mutação</span></label>
+          <label class="choice"><input type="radio" name="geneMut" value="positivo" required><span>Tenho uma mutação (BRCA1, BRCA2, PALB2, TP53 ou outra)</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend>Já fez radioterapia no tórax antes dos 30 anos (por exemplo, para linfoma de Hodgkin)?</legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="chestRT" value="nao" required><span>Não</span></label>
+          <label class="choice"><input type="radio" name="chestRT" value="sim" required><span>Sim</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend>Já fez biópsia de mama?</legend>
+        <div class="choices col">
+          <label class="choice"><input type="radio" name="biopsy" value="nenhuma" required><span>Nunca fiz</span></label>
+          <label class="choice"><input type="radio" name="biopsy" value="benigna" required><span>Sim, resultado benigno comum</span></label>
+          <label class="choice"><input type="radio" name="biopsy" value="atipia" required><span>Sim, com hiperplasia atípica ou carcinoma lobular in situ</span></label>
+          <label class="choice"><input type="radio" name="biopsy" value="nao_sei" required><span>Fiz, mas não sei o resultado</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend>Densidade das mamas (aparece no laudo da mamografia)</legend>
+        <div class="choices col">
+          <label class="choice"><input type="radio" name="density" value="nao_sei" required><span>Não sei ou nunca fiz mamografia</span></label>
+          <label class="choice"><input type="radio" name="density" value="A" required><span>A: quase toda gordurosa</span></label>
+          <label class="choice"><input type="radio" name="density" value="B" required><span>B: áreas dispersas de densidade</span></label>
+          <label class="choice"><input type="radio" name="density" value="C" required><span>C: heterogeneamente densa</span></label>
+          <label class="choice"><input type="radio" name="density" value="D" required><span>D: extremamente densa</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend>Quando foi sua última mamografia?</legend>
+        <div class="choices col">
+          <label class="choice"><input type="radio" name="lastMamo" value="nunca" required><span>Nunca fiz</span></label>
+          <label class="choice"><input type="radio" name="lastMamo" value="lt12" required><span>Há menos de 1 ano</span></label>
+          <label class="choice"><input type="radio" name="lastMamo" value="12_24" required><span>Entre 1 e 2 anos</span></label>
+          <label class="choice"><input type="radio" name="lastMamo" value="gt24" required><span>Há mais de 2 anos</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend>Você percebeu alguma destas mudanças nas mamas recentemente?</legend>
+        <label class="check"><input type="checkbox" id="sNodule"><span>Nódulo ou caroço novo (mama ou axila)</span></label>
+        <label class="check"><input type="checkbox" id="sDischarge"><span>Saída de líquido pelo mamilo sem apertar, com sangue ou transparente</span></label>
+        <label class="check"><input type="checkbox" id="sSkin"><span>Pele da mama com retração, vermelhidão ou aspecto de casca de laranja</span></label>
+        <label class="check"><input type="checkbox" id="sNipple"><span>Mamilo que puxou para dentro ou com ferida que não cicatriza</span></label>
+      </fieldset>
+
+      <div class="nav"><button type="button" class="btn ghost" data-prev>Voltar</button><button type="button" class="btn" data-next>Continuar</button></div>
+    </section>
+
+    <!-- 3. Gestações e hormônios -->
+    <section class="step card" data-step="3" hidden>
+      <h2 tabindex="-1">Gestações e hormônios</h2>
+
+      <div class="field">
+        <label for="births">Quantos filhos nasceram vivos?</label>
+        <input id="births" type="number" inputmode="numeric" min="0" max="15" required>
+        <span class="hint">Se nunca teve filhos, digite 0.</span>
+      </div>
+
+      <div id="g-parity" hidden>
+        <div class="grid2">
+          <div class="field"><label for="firstBirth">Idade ao nascer o 1º filho</label><input id="firstBirth" type="number" inputmode="numeric" min="12" max="55" disabled></div>
+          <div class="field"><label for="breastMonths">Tempo total de amamentação (meses)</label><input id="breastMonths" type="number" inputmode="numeric" min="0" max="240" disabled><span class="hint">Some todos os filhos. Digite 0 se não amamentou.</span></div>
+        </div>
+      </div>
+
+      <fieldset class="field">
+        <legend>Anticoncepcional hormonal (pílula)</legend>
+        <div class="choices col">
+          <label class="choice"><input type="radio" name="oc" value="nunca" required><span>Nunca usei, ou parei há 10 anos ou mais</span></label>
+          <label class="choice"><input type="radio" name="oc" value="5_9" required><span>Parei há 5 a 9 anos</span></label>
+          <label class="choice"><input type="radio" name="oc" value="1_4" required><span>Parei há 1 a 4 anos</span></label>
+          <label class="choice"><input type="radio" name="oc" value="atual" required><span>Uso agora, ou parei há menos de 1 ano</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="field" id="g-hrt" hidden>
+        <legend>Terapia hormonal da menopausa</legend>
+        <div class="choices col">
+          <label class="choice"><input type="radio" name="hrt" value="nunca" required disabled><span>Nunca usei, ou parei há mais de 5 anos</span></label>
+          <label class="choice"><input type="radio" name="hrt" value="comb_lt5" required disabled><span>Uso atual ou recente de estrogênio com progestagênio, há menos de 5 anos</span></label>
+          <label class="choice"><input type="radio" name="hrt" value="comb_ge5" required disabled><span>Uso atual ou recente de estrogênio com progestagênio, há 5 anos ou mais</span></label>
+          <label class="choice"><input type="radio" name="hrt" value="est_lt5" required disabled><span>Uso atual ou recente só de estrogênio, há menos de 5 anos</span></label>
+          <label class="choice"><input type="radio" name="hrt" value="est_ge5" required disabled><span>Uso atual ou recente só de estrogênio, há 5 anos ou mais</span></label>
+          <label class="choice"><input type="radio" name="hrt" value="nao_sei" required disabled><span>Uso atual ou recente, mas não sei o tipo</span></label>
+        </div>
+      </fieldset>
+
+      <div class="nav"><button type="button" class="btn ghost" data-prev>Voltar</button><button type="button" class="btn" data-next>Continuar</button></div>
+    </section>
+
+    <!-- 4. Hábitos -->
+    <section class="step card" data-step="4" hidden>
+      <h2 tabindex="-1">Hábitos</h2>
+
+      <div class="field">
+        <label for="alcohol">Quantas doses de bebida alcoólica por semana?</label>
+        <input id="alcohol" type="number" inputmode="numeric" min="0" max="100" required>
+        <span class="hint">1 dose = 1 lata de cerveja (350 mL), 1 taça de vinho (150 mL) ou 1 dose de destilado (40 mL). Digite 0 se não bebe.</span>
+      </div>
+
+      <div class="field">
+        <label for="activity">Minutos por semana de atividade física moderada ou intensa</label>
+        <input id="activity" type="number" inputmode="numeric" min="0" max="3000" required>
+        <span class="hint">Conta caminhada rápida, dança, bicicleta, natação, esporte. Some a semana toda. Digite 0 se não pratica.</span>
+      </div>
+
+      <fieldset class="field">
+        <legend>Cigarro</legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="smoke" value="nunca" required><span>Nunca fumei</span></label>
+          <label class="choice"><input type="radio" name="smoke" value="ex" required><span>Já fumei, parei</span></label>
+          <label class="choice"><input type="radio" name="smoke" value="atual" required><span>Fumo</span></label>
+        </div>
+      </fieldset>
+
+      <div class="nav"><button type="button" class="btn ghost" data-prev>Voltar</button><button type="submit" class="btn">Ver meu plano</button></div>
+    </section>
+  </form>
+
+  <!-- Aviso: histórico pessoal de câncer de mama -->
+  <section id="excluded" class="card" hidden>
+    <h2 tabindex="-1">Esta ferramenta não se aplica ao seu caso</h2>
+    <p>Ela calcula o risco de <strong>primeiro</strong> câncer de mama. Quem já teve a doença precisa de acompanhamento com a equipe que trata ou tratou o caso (mastologista ou oncologista), com exames de seguimento definidos para cada pessoa.</p>
+    <p>Mantenha suas consultas e seus exames de rotina em dia. Se notar qualquer mudança nas mamas, procure sua equipe de saúde.</p>
+    <div class="nav"><button type="button" class="btn" id="btn-restart2">Voltar ao início</button></div>
+  </section>
+
+  <!-- Resultado -->
+  <section id="result" hidden aria-live="polite">
+
+    <div class="card hero">
+      <div class="gauge" aria-hidden="true">
+        <svg viewBox="0 0 200 118">
+          <path class="g-bg" d="M20 100 A80 80 0 0 1 180 100"/>
+          <path class="g-fg" id="g-fg" d="M20 100 A80 80 0 0 1 180 100"/>
+          <text class="g-num" id="g-num" x="100" y="94" text-anchor="middle">0</text>
+          <text class="g-of" x="100" y="113" text-anchor="middle">de 100</text>
+        </svg>
+      </div>
+      <div class="hero-text">
+        <p class="cat" id="r-cat"></p>
+        <h2 id="r-title" tabindex="-1">Seu plano</h2>
+        <p id="r-sum"></p>
+        <p class="mut" id="r-rr"></p>
+      </div>
+    </div>
+
+    <div id="r-alert"></div>
+
+    <section class="card" id="r-next-wrap">
+      <h3>Seus próximos passos</h3>
+      <ol class="next" id="r-next"></ol>
+    </section>
+
+    <h3 class="sec">Seu plano, área por área</h3>
+    <div class="cards" id="r-cards"></div>
+
+    <section class="card">
+      <h3>O que mais pesou no seu resultado</h3>
+      <div id="r-drivers"></div>
+      <div id="r-protect"></div>
+    </section>
+
+    <p class="mut" id="send-status"></p>
+
+    <details class="card refs">
+      <summary>Como o cálculo é feito e fontes científicas</summary>
+      <p>O índice multiplica riscos relativos publicados na literatura para cada fator (família, mamas, vida reprodutiva, hormônios e hábitos) em relação a um perfil de referência. A escala de 0 a 100 é logarítmica: 100 equivale a um risco 5 vezes maior que o de referência. Mutações, radioterapia no tórax, hiperplasia atípica e histórico familiar forte elevam a categoria independentemente do número. É uma versão simplificada e educativa, sem validação prospectiva; modelos como Gail (BCRAT), Tyrer-Cuzick (IBIS) e CanRisk são os usados na prática clínica.</p>
+      <ul>
+        <li>Collaborative Group on Hormonal Factors in Breast Cancer. Familial breast cancer. Lancet 2001;358:1389-99.</li>
+        <li>Collaborative Group. Breast cancer and breastfeeding. Lancet 2002;360:187-95.</li>
+        <li>Collaborative Group. Menarche, menopause, and breast cancer risk. Lancet Oncol 2012;13:1141-51.</li>
+        <li>Collaborative Group. Type and timing of menopausal hormone therapy and breast cancer risk. Lancet 2019;394:1159-68.</li>
+        <li>Collaborative Group. Breast cancer and hormonal contraceptives. Lancet 1996;347:1713-27.</li>
+        <li>Collaborative Group. Alcohol, tobacco and breast cancer. Br J Cancer 2002;87:1234-45.</li>
+        <li>Hartmann LC et al. Benign breast disease and the risk of breast cancer. N Engl J Med 2005;353:229-37.</li>
+        <li>Boyd NF et al. Mammographic density and the risk and detection of breast cancer. N Engl J Med 2007;356:227-36.</li>
+        <li>Renehan AG et al. Body-mass index and incidence of cancer. Lancet 2008;371:569-78.</li>
+        <li>Wu Y et al. Physical activity and risk of breast cancer: meta-analysis. Breast Cancer Res Treat 2013;137:869-82.</li>
+        <li>Gaudet MM et al. Active smoking and breast cancer risk. J Natl Cancer Inst 2013;105:515-25.</li>
+        <li>Kuchenbaecker KB et al. Risks of breast, ovarian, and contralateral breast cancer for BRCA1 and BRCA2 mutation carriers. JAMA 2017;317:2402-16.</li>
+        <li>Moskowitz CS et al. Breast cancer after chest radiation therapy for childhood cancer. J Clin Oncol 2014;32:2217-23.</li>
+        <li>INCA. Diretrizes para a detecção precoce do câncer de mama no Brasil, 2015; Ministério da Saúde, ampliação do acesso à mamografia (setembro de 2025).</li>
+        <li>Urban LABD et al. Recomendações do CBR, SBM e FEBRASGO para rastreamento por imagem do câncer de mama. Radiol Bras 2017;50:244-9.</li>
+        <li>Organização Mundial da Saúde. Diretrizes sobre atividade física e comportamento sedentário, 2020.</li>
+      </ul>
+    </details>
+
+    <div class="actions">
+      <button type="button" class="btn" id="btn-print">Salvar ou imprimir meu plano</button>
+      <button type="button" class="btn ghost" id="btn-restart">Nova avaliação</button>
+    </div>
+
+    <p class="disclaimer">Este resultado é uma estimativa educativa e não é diagnóstico. Leve o seu plano a um profissional de saúde para decidir exames e condutas. Qualquer alteração nas mamas deve ser avaliada por um profissional, mesmo com mamografia recente normal.</p>
+  </section>
+
+</main>
+
+<footer class="foot"><p>Ferramenta educativa de extensão universitária. Nenhum nome ou contato é coletado.</p></footer>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
